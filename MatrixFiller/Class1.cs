@@ -24,7 +24,6 @@ public class Matrix
         var key = Console.ReadKey(false);
         switch (key.Key)
         {
-
             case ConsoleKey.UpArrow:
                 break;
             case ConsoleKey.DownArrow:
@@ -37,30 +36,51 @@ public class Matrix
                 break;
         }
     }
-    private void WriteArrayDU()
+
+
+    private void WriteArrayLeftLineDU()
     {
         for (int i = lenghtVertical - downBorder; i >= 0 + upBorder; i--)
             arr[i, rightBorder] = counter++;
         rightBorder++;
     }
-    private void WriteArrayRL()
-    {
-        for (int i = lenghtHorizontal - leftBorder; i >= 0 + rightBorder; i--)
-            arr[lenghtVertical - downBorder, i] = counter++;
-        downBorder++;
-    }
-    private void WriteArrayUD()
+    private void WriteArrayRightLineUD()
     {
         for (int i = 0 + upBorder; i <= lenghtVertical - downBorder; i++)
             arr[i, lenghtHorizontal - leftBorder] = counter++;
         leftBorder++;
     }
-    private void WriteArrayLR()
+    private void WriteArrayLeftLineUD()
+    {
+        for (int i = 0 + upBorder; i <= lenghtVertical - downBorder; i++)
+            arr[i, rightBorder] = counter++;
+        rightBorder++;
+    }
+    private void WriteArrayDownLineRL()
+    {
+        for (int i = lenghtHorizontal - leftBorder; i >= 0 + rightBorder; i--)
+            arr[lenghtVertical - downBorder, i] = counter++;
+        downBorder++;
+    }
+    private void WriteArrayUpLineLR()
     {
         for (int i = 0 + rightBorder; i <= lenghtHorizontal - leftBorder; i++)
             arr[upBorder, i] = counter++;
         upBorder++;
     }
+    private void WriteArrayDownLineLR()
+    {
+        for (int i = 0 + rightBorder; i <= lenghtHorizontal - leftBorder; i++)
+            arr[lenghtVertical - downBorder, i] = counter++;
+        downBorder++;
+    }
+    private void WriteArrayUpLineRL()
+    {
+        for (int i = lenghtHorizontal - leftBorder; i >= 0 + rightBorder; i--)
+            arr[upBorder, i] = counter++;
+        upBorder++;
+    }
+    
     public void ArrayToConsole()
     {
         for (int i = 0; i < arr.GetLength(0); i++)
@@ -70,14 +90,15 @@ public class Matrix
             Console.WriteLine();
         }
     }
+    
     public void FillMatrixRightDown()
     {
         while (counter < lenghtVertical * lenghtHorizontal)
         {
-            WriteArrayLR();
-            WriteArrayUD();
-            WriteArrayRL();
-            WriteArrayDU();
+            WriteArrayUpLineLR();
+            WriteArrayRightLineUD();
+            WriteArrayDownLineRL();
+            WriteArrayLeftLineDU();
         }
     }
 }

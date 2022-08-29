@@ -93,3 +93,22 @@ static void FillMatrixRightDown(int height,
         WriteArrayDU(ref counter, ref rightBorder, upBorder, downBorder, vertical, arr);
     }
 }
+static void FillMatrixRightUp(int height,
+                                int width,
+                                ref int counter,
+                                ref int leftBorder,
+                                ref int rightBorder,
+                                ref int upBorder,
+                                ref int downBorder,
+                                int vertical,
+                                int horizontal,
+                                int[,] arr)
+{
+    while (counter < height * width)
+    {
+        WriteArrayLR(ref counter, leftBorder, rightBorder, ref upBorder, horizontal, arr);
+        WriteArrayRL(ref counter, leftBorder, rightBorder, ref downBorder, vertical, horizontal, arr);
+        WriteArrayUD(ref counter, ref leftBorder, upBorder, downBorder, vertical, horizontal, arr);
+        WriteArrayDU(ref counter, ref rightBorder, upBorder, downBorder, vertical, arr);
+    }
+}
