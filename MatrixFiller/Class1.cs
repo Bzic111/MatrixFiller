@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MatrixFiller;
-
+/// <summary></summary>
 public class Matrix
 {
     int counter, leftBorder, rightBorder, upBorder, downBorder, lenghtVertical, lenghtHorizontal;
@@ -15,10 +15,17 @@ public class Matrix
         counter = 1;
         leftBorder = rightBorder = upBorder = downBorder = 0;
     }
-    public Matrix()
+    /// <summary></summary>
+    /// <param name="vertical"></param>
+    /// <param name="horizontal"></param>
+    public Matrix(int vertical,int horizontal)
     {
         Init();
+        lenghtHorizontal = horizontal-1;
+        lenghtVertical = vertical-1;
+        arr = new int[horizontal,vertical];
     }
+
     public void Selecting()
     {
         var key = Console.ReadKey(false);
@@ -37,18 +44,35 @@ public class Matrix
         }
     }
 
-
-    private void WriteArrayLeftLineDU()
+    private void WriteArrayUpLineLR()
     {
-        for (int i = lenghtVertical - downBorder; i >= 0 + upBorder; i--)
-            arr[i, rightBorder] = counter++;
-        rightBorder++;
+        for (int i = 0 + rightBorder; i <= lenghtHorizontal - leftBorder; i++)
+            arr[upBorder, i] = counter++;
+        upBorder++;
+    }
+    private void WriteArrayUpLineRL()
+    {
+        for (int i = lenghtHorizontal - leftBorder; i >= 0 + rightBorder; i--)
+            arr[upBorder, i] = counter++;
+        upBorder++;
     }
     private void WriteArrayRightLineUD()
     {
         for (int i = 0 + upBorder; i <= lenghtVertical - downBorder; i++)
             arr[i, lenghtHorizontal - leftBorder] = counter++;
         leftBorder++;
+    }
+    private void WriteArrayRightLineDU()
+    {
+        for (int i = lenghtVertical - downBorder; i >= 0 + upBorder; i--)
+            arr[i,lenghtHorizontal - leftBorder] = counter++;
+        leftBorder++;
+    }
+    private void WriteArrayLeftLineDU()
+    {
+        for (int i = lenghtVertical - downBorder; i >= 0 + upBorder; i--)
+            arr[i, rightBorder] = counter++;
+        rightBorder++;
     }
     private void WriteArrayLeftLineUD()
     {
@@ -62,23 +86,11 @@ public class Matrix
             arr[lenghtVertical - downBorder, i] = counter++;
         downBorder++;
     }
-    private void WriteArrayUpLineLR()
-    {
-        for (int i = 0 + rightBorder; i <= lenghtHorizontal - leftBorder; i++)
-            arr[upBorder, i] = counter++;
-        upBorder++;
-    }
     private void WriteArrayDownLineLR()
     {
         for (int i = 0 + rightBorder; i <= lenghtHorizontal - leftBorder; i++)
             arr[lenghtVertical - downBorder, i] = counter++;
         downBorder++;
-    }
-    private void WriteArrayUpLineRL()
-    {
-        for (int i = lenghtHorizontal - leftBorder; i >= 0 + rightBorder; i--)
-            arr[upBorder, i] = counter++;
-        upBorder++;
     }
     
     public void ArrayToConsole()
@@ -91,9 +103,51 @@ public class Matrix
         }
     }
     
-    public void FillMatrixRightDown()
+    
+    public void FillMatrixFromLeftDownCornerToRight()
     {
-        while (counter < lenghtVertical * lenghtHorizontal)
+        while (counter <= arr.GetLength(0) * arr.GetLength(1))
+        {
+            WriteArrayDownLineLR();
+            WriteArrayRightLineDU();
+            WriteArrayUpLineRL();
+            WriteArrayLeftLineUD();
+        }
+    }
+    public void FillMatrixFromRightDownCornerToUp()
+    {
+        while (counter <= arr.GetLength(0) * arr.GetLength(1))
+        {
+            WriteArrayRightLineDU();
+            WriteArrayUpLineRL();
+            WriteArrayLeftLineUD();
+            WriteArrayDownLineLR();
+        }
+    }
+    public void FillMatrixFromRightUpCornerToLeft()
+    {
+        while (counter <= arr.GetLength(0) * arr.GetLength(1))
+        {
+            WriteArrayUpLineRL();
+            WriteArrayLeftLineUD();
+            WriteArrayDownLineLR();
+            WriteArrayRightLineDU();
+        }
+    }
+    public void FillMatrixFromLeftUpCornerToDown()
+    {
+        while (counter <= arr.GetLength(0) * arr.GetLength(1))
+        {
+            WriteArrayLeftLineUD();
+            WriteArrayDownLineLR();
+            WriteArrayRightLineDU();
+            WriteArrayUpLineRL();
+        }
+    }
+
+    public void FillMatrixFromLeftUpCornerToRight()
+    {
+        while (counter <= arr.GetLength(0) * arr.GetLength(1))
         {
             WriteArrayUpLineLR();
             WriteArrayRightLineUD();
@@ -101,4 +155,35 @@ public class Matrix
             WriteArrayLeftLineDU();
         }
     }
+    public void FillMatrixFromRightUpCornerToDown()
+    {
+        while (counter <= arr.GetLength(0) * arr.GetLength(1))
+        {
+            WriteArrayRightLineUD();
+            WriteArrayDownLineRL();
+            WriteArrayLeftLineDU();
+            WriteArrayUpLineLR();
+        }
+    }
+    public void FillMatrixFromRightDownCornerToLeft()
+    {
+        while (counter <= arr.GetLength(0) * arr.GetLength(1))
+        {
+            WriteArrayDownLineRL();
+            WriteArrayLeftLineDU();
+            WriteArrayUpLineLR();
+            WriteArrayRightLineUD();
+        }
+    }
+    public void FillMatrixFromLeftDownCornerToUp()
+    {
+        while (counter <= arr.GetLength(0) * arr.GetLength(1))
+        {
+            WriteArrayLeftLineDU();
+            WriteArrayUpLineLR();
+            WriteArrayRightLineUD();
+            WriteArrayDownLineRL();
+        }
+    }
+    
 }
