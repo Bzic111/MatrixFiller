@@ -26,24 +26,6 @@ public class Matrix
         arr = new int[horizontal,vertical];
     }
 
-    public void Selecting()
-    {
-        var key = Console.ReadKey(false);
-        switch (key.Key)
-        {
-            case ConsoleKey.UpArrow:
-                break;
-            case ConsoleKey.DownArrow:
-                break;
-            case ConsoleKey.Enter:
-                break;
-            case ConsoleKey.Escape:
-                break;
-            default:
-                break;
-        }
-    }
-
     private void WriteArrayUpLineLR()
     {
         for (int i = 0 + rightBorder; i <= lenghtHorizontal - leftBorder; i++)
@@ -93,17 +75,6 @@ public class Matrix
         downBorder++;
     }
     
-    public void ArrayToConsole()
-    {
-        for (int i = 0; i < arr.GetLength(0); i++)
-        {
-            for (int j = 0; j < arr.GetLength(1); j++)
-                Console.Write($"{arr[i, j]}\t");
-            Console.WriteLine();
-        }
-    }
-    
-    
     public void FillMatrixFromLeftDownCornerToRight()
     {
         while (counter <= arr.GetLength(0) * arr.GetLength(1))
@@ -144,7 +115,6 @@ public class Matrix
             WriteArrayUpLineRL();
         }
     }
-
     public void FillMatrixFromLeftUpCornerToRight()
     {
         while (counter <= arr.GetLength(0) * arr.GetLength(1))
@@ -186,4 +156,13 @@ public class Matrix
         }
     }
     
+    public void ArrayToConsole()
+    {
+        for (int i = 0; i < arr.GetLength(0); i++)
+        {
+            for (int j = 0; j < arr.GetLength(1); j++)
+                Console.Write($"{arr[i, j]}\t");
+            Console.WriteLine();
+        }
+    }
 }
